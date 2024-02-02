@@ -1,14 +1,14 @@
-"use client"
-import { cn } from "@/lib/utils"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+"use client";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   AnimatePresence,
   MotionValue,
   motion,
   useMotionValue,
   useTransform,
-} from "framer-motion"
+} from "framer-motion";
 
 export default function Nav() {
   const links = [
@@ -24,9 +24,21 @@ export default function Nav() {
       path: "/contact",
       name: "contact",
     },
-  ]
-  const pathname = usePathname()
-  const MotionLink = motion(Link)
+    {
+      path: "/blog",
+      name: "blog",
+    },
+    {
+      path: "/portfolio",
+      name: "portfolio",
+    },
+    {
+      path: "/faq",
+      name: "faq",
+    },
+  ];
+  const pathname = usePathname();
+  const MotionLink = motion(Link);
 
   const mapRange = (
     inputLower: number,
@@ -34,12 +46,12 @@ export default function Nav() {
     outputLower: number,
     outputUpper: number
   ) => {
-    const INPUT_RANGE = inputUpper - inputLower
-    const OUTPUT_RANGE = outputUpper - outputLower
+    const INPUT_RANGE = inputUpper - inputLower;
+    const OUTPUT_RANGE = outputUpper - outputLower;
 
     return (value: number) =>
-      outputLower + (((value - inputLower) / INPUT_RANGE) * OUTPUT_RANGE || 0)
-  }
+      outputLower + (((value - inputLower) / INPUT_RANGE) * OUTPUT_RANGE || 0);
+  };
 
   const setTransform = (
     item: HTMLElement & EventTarget,
@@ -47,35 +59,35 @@ export default function Nav() {
     x: MotionValue,
     y: MotionValue
   ) => {
-    const bounds = item.getBoundingClientRect()
-    const relativeX = event.clientX - bounds.left
-    const relativeY = event.clientY - bounds.top
-    const xRange = mapRange(0, bounds.width, -1, 1)(relativeX)
-    const yRange = mapRange(0, bounds.height, -1, 1)(relativeY)
-    x.set(xRange * 10)
-    y.set(yRange * 10)
-    console.log(xRange)
-  }
+    const bounds = item.getBoundingClientRect();
+    const relativeX = event.clientX - bounds.left;
+    const relativeY = event.clientY - bounds.top;
+    const xRange = mapRange(0, bounds.width, -1, 1)(relativeX);
+    const yRange = mapRange(0, bounds.height, -1, 1)(relativeY);
+    x.set(xRange * 10);
+    y.set(yRange * 10);
+    console.log(xRange);
+  };
 
   return (
     <nav className="p-8">
       <ul className="flex gap-12">
         <AnimatePresence>
           {links.map((link) => {
-            const x = useMotionValue(0)
-            const y = useMotionValue(0)
-            const textX = useTransform(x, (latest) => latest * 0.5)
-            const textY = useTransform(y, (latest) => latest * 0.5)
+            const x = useMotionValue(0);
+            const y = useMotionValue(0);
+            const textX = useTransform(x, (latest) => latest * 0.5);
+            const textY = useTransform(y, (latest) => latest * 0.5);
             return (
               <motion.li
                 onPointerMove={(event) => {
-                  const item = event.currentTarget
-                  setTransform(item, event, x, y)
+                  const item = event.currentTarget;
+                  setTransform(item, event, x, y);
                 }}
                 key={link.path}
                 onPointerLeave={(event) => {
-                  x.set(0)
-                  y.set(0)
+                  x.set(0);
+                  y.set(0);
                 }}
                 style={{ x, y }}
               >
@@ -101,10 +113,10 @@ export default function Nav() {
                   ) : null}
                 </MotionLink>
               </motion.li>
-            )
+            );
           })}
         </AnimatePresence>
       </ul>
     </nav>
-  )
+  );
 }
