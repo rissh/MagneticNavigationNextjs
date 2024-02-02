@@ -27,12 +27,8 @@ This is a Next.js website project that showcases various sections such as Home, 
 
 ## Liquid Navigation 🧲
 
-<div align="center">
-  <video controls width="640" height="360">
-    <source src="path/to/your/video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
+
+https://github.com/rissh/MagneticNavigationNextjs/assets/87235655/0fe38a41-76f8-4707-bc7f-db4a8a674ede
 
 
 ## Getting Started
